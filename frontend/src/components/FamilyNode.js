@@ -4,7 +4,7 @@ import css from '../css/FamilyNode.module.css';
 
 
 
-export default function FamilyNode({node, style}) {
+export default function FamilyNode({ node, style }) {
 
     return (
       <div className={css.root} style={style}>

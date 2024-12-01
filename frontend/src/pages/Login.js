@@ -9,7 +9,7 @@ const Login = () => {
     e.preventDefault();
 
     navigate("/dashboard");
-  };k
+  };
 
   const routeToWebLogin = (e) => {
     e.preventDefault();
