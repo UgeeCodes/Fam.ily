@@ -57,15 +57,6 @@ $ npm run start
 
 
 
-## Credits
-
-- [Nhi Tran](https://github.com/nhitran26197)
-- [Juan Gamez](https://github.com/froppyboppy)
-- [Saja Hussein](https://github.com/Iremiaa)
-- [Parth Sharma](https://github.com/pxs4528)
-
-
-
 ## License
 
 MIT
