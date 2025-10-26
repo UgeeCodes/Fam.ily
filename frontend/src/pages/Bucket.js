@@ -1,4 +1,4 @@
-//bucket list page
+//bucket list page 
 import React from "react";
 import BucketList from "../components/getBucketList";
 
