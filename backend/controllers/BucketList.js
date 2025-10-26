@@ -1,4 +1,4 @@
-//bucket list controller
+//bucket list controller 
 const Bucket = require("../models/bucketModel.js");
 
 const bucketlist = {
