@@ -36,7 +36,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/pxs4528/fam.ily
+$ git clone https://github.com/UgeeCodes/fam.ily
 
 # Go into the repository
 $ cd fam.ily
