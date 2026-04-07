@@ -2,6 +2,7 @@ import "../css/Profile.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import API_BASE_URL from "../config/api";
 
 function AddGoal(props) {
   const [title, setTitle] = useState("");
@@ -32,7 +33,7 @@ function AddGoal(props) {
     const formData = new FormData();
     formData.append("image", image);
 
-    const result = await axios.post("http://localhost:3030/images", formData, {
+    const result = await axios.post(`${API_BASE_URL}/images`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     console.log(result.data);
@@ -61,7 +62,7 @@ function AddGoal(props) {
 
   const submitGoal = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3030/bucketlist/create", {
+    fetch(`${API_BASE_URL}/bucketlist/create`, {
       method: "POST",
       body: JSON.stringify({
         title: title,
@@ -121,7 +122,7 @@ function AddGoal(props) {
               dialogRef.current?.close();
 
               axios
-                .post("http://localhost:3030/BucketList/create", {
+                .post(`${API_BASE_URL}/BucketList/create`, {
                   title,
                   description,
                   location,

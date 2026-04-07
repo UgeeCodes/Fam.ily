@@ -6,6 +6,7 @@ import Tree from "../components/Tree";
 import AddMember from "../components/addMember";
 import { Dialog, Transition } from "@headlessui/react";
 import AddPost from "../components/addPost";
+import API_BASE_URL from "../config/api";
 
 export default function Dashboard() {
   console.log(localStorage.getItem("user"));
@@ -18,7 +19,7 @@ export default function Dashboard() {
   const [nodes, setNodes] = useState(null);
   useEffect(() => {
     console.log("fetching");
-    fetch("http://localhost:3030/gettree")
+    fetch(`${API_BASE_URL}/gettree`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

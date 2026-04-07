@@ -9,6 +9,7 @@ import AddPostModal from "../components/addPostModal";
 import "../css/feedpage.css";
 import { Dialog, Transition } from "@headlessui/react";
 import AddPost from "../components/addPost";
+import API_BASE_URL from "../config/api";
 
 function Travelpage() {
   const [posts, setPosts] = useState();
@@ -22,7 +23,7 @@ function Travelpage() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3030/getPosts/travel", {
+    fetch(`${API_BASE_URL}/getPosts/travel`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

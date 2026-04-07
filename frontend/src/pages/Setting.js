@@ -3,12 +3,13 @@ import NavBar from "../components/Navbar";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
+import API_BASE_URL from "../config/api";
 
 async function postImage({ image }) {
   const formData = new FormData();
   formData.append("image", image);
 
-  const result = await axios.post("http://localhost:3030/images", formData, {
+  const result = await axios.post(`${API_BASE_URL}/images`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   console.log(result.data);
@@ -49,7 +50,7 @@ export default function Profile() {
   const submitSetting = (e) => {
     e.preventDefault();
     console.log("sent");
-    fetch("http://localhost:3030/setting", {
+    fetch(`${API_BASE_URL}/setting`, {
       method: "POST",
       body: JSON.stringify({
         member_id: localStorage.getItem("member_id"),

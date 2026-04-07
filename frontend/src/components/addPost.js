@@ -2,12 +2,13 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Map from "./mapPicker";
+import API_BASE_URL from "../config/api";
 
 async function postImage({ image }) {
   const formData = new FormData();
   formData.append("image", image);
 
-  const result = await axios.post("http://localhost:3030/images", formData, {
+  const result = await axios.post(`${API_BASE_URL}/images`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   console.log(result.data);
@@ -45,7 +46,7 @@ export default function Example() {
   // get post data
   const submitPost = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3030/posting", {
+    fetch(`${API_BASE_URL}/posting`, {
       method: "POST",
       body: JSON.stringify({
         member_id: localStorage.getItem("member_id"),

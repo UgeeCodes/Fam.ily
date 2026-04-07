@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "../css/forgot.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 const Forgot = () => {
   const [newPassword, SetNewPassword] = useState("");
@@ -17,7 +18,7 @@ const Forgot = () => {
     let email = localStorage.getItem("email");
     e.preventDefault();
     axios
-      .post("http://localhost:3030/changepw", {
+      .post(`${API_BASE_URL}/changepw`, {
         newPassword,
         email,
       })

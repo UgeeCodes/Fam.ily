@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../css/register.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +20,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3030/signup", {
+      .post(`${API_BASE_URL}/signup`, {
         username: username,
         password: password,
         email: email,

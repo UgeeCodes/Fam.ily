@@ -3,6 +3,7 @@ import styles from "../css/login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 const Login = () => {
   //route to dashboard
   const routeToDashBoard = (e) => {
@@ -37,7 +38,7 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3030/login", {
+      .post(`${API_BASE_URL}/login`, {
         username: username,
         password: password,
       })
@@ -85,7 +86,9 @@ const Login = () => {
               </Link>
             </label>
             <button type="submit">Login</button>
-            <button type="submit" onClick={(e) => routeToWebLogin(e)}>Login through Webcam</button>
+            <button type="submit" onClick={(e) => routeToWebLogin(e)}>
+              Login through Webcam
+            </button>
             <div id="signInDiv"></div>
             {user && (
               <div>

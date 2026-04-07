@@ -7,6 +7,7 @@ import { useState, useEffect, useRef, Fragment } from "react";
 import "../css/feedpage.css";
 import { Dialog, Transition } from "@headlessui/react";
 import AddPost from "../components/addPost";
+import API_BASE_URL from "../config/api";
 
 function Eventpage() {
   const [posts, setPosts] = useState();
@@ -19,7 +20,7 @@ function Eventpage() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3030/getPosts/event", {
+    fetch(`${API_BASE_URL}/getPosts/event`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

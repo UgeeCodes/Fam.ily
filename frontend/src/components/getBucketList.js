@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import BucketListCard from "./bucketListCard";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 const BucketList = ({ items }) => {
   const [Items, setItems] = useState([]);
   const getBucketListItems = () => {
     //api call to get the bucket list items
     //set the items array to the response
     axios
-      .get("http://localhost:3030/bucketlist")
+      .get(`${API_BASE_URL}/bucketlist`)
       .then((response) => {
         console.log(response);
         setItems(response.data);

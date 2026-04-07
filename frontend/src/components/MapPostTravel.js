@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
+import API_BASE_URL from "../config/api";
 
 function Marker({ position, map, children }) {
   const markerRef = useRef();
@@ -29,7 +30,7 @@ function MapPosts({ map }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3030/getPosts/travel", {
+    fetch(`${API_BASE_URL}/getPosts/travel`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +92,7 @@ export function MapComponent() {
         center: { lat: 41.49167630796415, lng: -77.00349221838519 },
         zoom: 7,
         mapId: "9e8e8fc3da43a2e0",
-      })
+      }),
     );
   }, []);
 

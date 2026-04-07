@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../css/forgot.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const Forgot = () => {
     console.log(email);
     sessionStorage.setItem("email", email);
     axios
-      .post("http://localhost:3030/pwReset", {
+      .post(`${API_BASE_URL}/pwReset`, {
         email,
       })
       .then((res) => {
