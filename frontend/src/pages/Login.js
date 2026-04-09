@@ -31,11 +31,15 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   let navigate = useNavigate();
 
   //async function to handle login
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     axios
       .post(`${API_BASE_URL}/login`, {
@@ -56,7 +60,32 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
+
+        if (err.response) {
+          const status = err.response.status;
+          if (status === 404) {
+            setError(
+              "Username not found. Please check your username or create an account.",
+            );
+          } else if (status === 400) {
+            setError("Incorrect password. Please try again.");
+          } else if (status === 500) {
+            setError("Server error. Please try again later.");
+          } else {
+            setError("Login failed. Please try again.");
+          }
+        } else {
+          setError(
+            "Unable to connect to the server. Please check your connection.",
+          );
+        }
       });
+  };
+
+  const handleInputChange = (e, setter) => {
+    setter(e.target.value);
+    setError("");
   };
 
   return (
@@ -64,12 +93,13 @@ const Login = () => {
       <div className={styles.form}>
         <div style={{ paddingTop: "100px", paddingLeft: "100px" }}>
           <form onSubmit={handleLogin}>
+            {error && <div className={styles.errorMessage}>{error}</div>}
             <label>
               <span className={styles.username}>Username:</span>
               <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => handleInputChange(e, setUsername)}
               />
             </label>
             <label>
@@ -77,7 +107,7 @@ const Login = () => {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handleInputChange(e, setPassword)}
               />
             </label>
             <label>
@@ -85,7 +115,16 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </label>
-            <button type="submit">Login</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <span className={styles.spinnerContainer}>
+                  <span className={styles.spinner}></span>
+                  Logging in...
+                </span>
+              ) : (
+                "Login"
+              )}
+            </button>
             <button type="submit" onClick={(e) => routeToWebLogin(e)}>
               Login through Webcam
             </button>
