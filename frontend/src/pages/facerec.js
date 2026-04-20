@@ -27,7 +27,7 @@ function Facerec() {
   React.useEffect(() => {
     const loadModels = async () => {
       try {
-        const MODEL_URL = process.env.PUBLIC_URL + "/models";
+        const MODEL_URL = (process.env.PUBLIC_URL || "") + "/models";
 
         // Explicitly initialize the WebGL backend before loading models
         await faceapi.tf.setBackend("webgl");
