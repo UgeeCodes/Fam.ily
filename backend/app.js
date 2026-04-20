@@ -4,6 +4,13 @@ const cors = require("cors");
 
 app.use(cors(), express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the frontend public folder (for models, etc.)
+app.use(express.static(require("path").join(__dirname, "../frontend/public")));
+
+// Serve static files from the frontend build folder (for React app)
+app.use(express.static(require("path").join(__dirname, "../frontend/build")));
+
 //import S3 bucket
 const fs = require("fs");
 const util = require("util");
@@ -103,6 +110,11 @@ app.post("/images", upload.single("image"), async (req, res) => {
   await unlinkFile(file.path);
 
   res.send(result.Location);
+});
+
+// Catch-all route: serve React's index.html for client-side routing
+app.get("*", (req, res) => {
+  res.sendFile(require("path").join(__dirname, "../frontend/build/index.html"));
 });
 
 const PORT = 3030;

@@ -24,7 +24,7 @@ const FaceRegistration = ({ username, onSuccess, onSkip }) => {
   React.useEffect(() => {
     const loadModels = async () => {
       try {
-        const MODEL_URL = (process.env.PUBLIC_URL || "") + "/models";
+        const MODEL_URL = window.location.origin + "/models";
         await faceapi.tf.setBackend("webgl");
         await faceapi.tf.ready();
 
