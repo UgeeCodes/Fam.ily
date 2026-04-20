@@ -3,6 +3,7 @@ import styles from "../css/register.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import API_BASE_URL from "../config/api";
+import FaceRegistration from "../components/FaceRegistration";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,9 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [showFaceRegistration, setShowFaceRegistration] = useState(false);
+  const [error, setError] = useState("");
   let navigte = useNavigate();
 
   const routeToLogin = () => {
@@ -19,6 +23,7 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
     axios
       .post(`${API_BASE_URL}/signup`, {
         username: username,
@@ -30,26 +35,89 @@ const Register = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigte("/login");
+          setIsRegistered(true);
+          setShowFaceRegistration(true);
         }
       })
       .catch((err) => {
         console.log(err);
+        if (err.response?.status === 400 && err.response?.data?.error) {
+          setError(err.response.data.error);
+        } else {
+          setError("Registration failed. Please try again.");
+        }
       });
   };
+
+  const handleFaceRegistrationSuccess = () => {
+    navigte("/login");
+  };
+
+  const handleSkipFaceRegistration = () => {
+    navigte("/login");
+  };
+
+  if (showFaceRegistration) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.form}>
+          <div
+            style={{
+              paddingTop: "50px",
+              paddingLeft: "100px",
+              paddingRight: "100px",
+            }}
+          >
+            <FaceRegistration
+              username={username}
+              onSuccess={handleFaceRegistrationSuccess}
+              onSkip={handleSkipFaceRegistration}
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <div className={styles.form}>
+              <h1 className={styles.h1}>Welcome to fam.ily</h1>
+            </div>
+          </div>
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/002/292/974/non_2x/happy-family-with-son-and-daughter-parents-hugging-children-illustration-vector.jpg"
+            alt="family"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.form}>
         {/* <h1 className={styles.h1}>Register</h1> */}
         <div style={{ paddingTop: "100px", paddingLeft: "100px" }}>
-          <form onSubmit={routeToLogin}>
+          {error && (
+            <div
+              style={{
+                backgroundColor: "#f8d7da",
+                border: "1px solid #f5c6cb",
+                color: "#721c24",
+                padding: "12px",
+                marginBottom: "15px",
+                borderRadius: "4px",
+                fontSize: "14px",
+              }}
+            >
+              {error}
+            </div>
+          )}
+          <form onSubmit={handleRegister}>
             <label>
               <span className={styles.username}>Username:</span>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -58,6 +126,7 @@ const Register = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -66,6 +135,7 @@ const Register = () => {
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -74,6 +144,7 @@ const Register = () => {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -82,6 +153,7 @@ const Register = () => {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -90,13 +162,10 @@ const Register = () => {
                 type="text"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
+                required
               />
             </label>
-            <button
-              onClick={handleRegister}
-              className={styles.button}
-              type="submit"
-            >
+            <button className={styles.button} type="submit">
               Register
             </button>
             <div style={{ marginTop: "10px" }}>
@@ -114,10 +183,8 @@ const Register = () => {
           </div>
         </div>
         <img
-          // className={styles.heroimage}
-          // src="https://svgshare.com/i/sEE.svg"
           src="https://static.vecteezy.com/system/resources/previews/002/292/974/non_2x/happy-family-with-son-and-daughter-parents-hugging-children-illustration-vector.jpg"
-          alt="asdf"
+          alt="family"
         />
       </div>
     </div>

@@ -13,7 +13,7 @@ const upload = multer({ dest: "uploads/" });
 const { uploadFile } = require("./controllers/uploadFile");
 
 //cnnect to mongoDB
-const {dbConnect} = require("./controllers/connectMongoDb");
+const { dbConnect } = require("./controllers/connectMongoDb");
 dbConnect();
 const Member = require("./models/member");
 //import controllers
@@ -24,6 +24,10 @@ const changepw = require("./controllers/changepw");
 const addMember = require("./controllers/addmember");
 const showTree = require("./controllers/showtree");
 const posting = require("./controllers/posting");
+const {
+  registerFace,
+  recognizeFace,
+} = require("./controllers/faceRecognition");
 
 const { travelPost, eventPost } = require("./controllers/feedpage");
 const getTree = require("./controllers/getTree");
@@ -78,6 +82,8 @@ app.post("/login", login);
 app.post("/feedpage/travel", travelPost);
 app.post("/feedpage/event", eventPost);
 app.post("/signup", signup);
+app.post("/register-face", registerFace);
+app.post("/recognize-face", recognizeFace);
 app.get("/getTree", getTree);
 app.get("/getPosts", getPosts);
 app.post("/pwReset", pwReset);
